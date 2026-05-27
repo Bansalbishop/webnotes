@@ -38,7 +38,8 @@ export default function Sidebar() {
             WebNotes
           </h1>
           <p className="text-[11px] text-gray-500 dark:text-gray-400">
-            Keep your thoughts organized and accessible.
+            Keep your notes organized and accessible across all your devices.
+            Create, edit, and
           </p>
         </div>
       </div>
