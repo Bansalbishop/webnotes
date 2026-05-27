@@ -1,0 +1,158 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --color-note-yellow: #fef9c3;
+  --color-note-yellow-dark: #422006;
+  --color-note-blue: #dbeafe;
+  --color-note-blue-dark: #1e3a5f;
+  --color-note-green: #dcfce7;
+  --color-note-green-dark: #14532d;
+  --color-note-purple: #ede9fe;
+  --color-note-purple-dark: #3b0764;
+  --color-note-pink: #fce7f3;
+  --color-note-pink-dark: #500724;
+  --color-note-orange: #ffedd5;
+  --color-note-orange-dark: #431407;
+  --color-note-gray: #f3f4f6;
+  --color-note-gray-dark: #1f2937;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(0 0 0 / 0.15);
+  border-radius: 999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: rgb(255 255 255 / 0.15);
+}
+
+/* Masonry-style columns */
+.notes-masonry {
+  column-count: 1;
+  column-gap: 1rem;
+}
+@media (min-width: 640px) {
+  .notes-masonry {
+    column-count: 2;
+  }
+}
+@media (min-width: 1024px) {
+  .notes-masonry {
+    column-count: 3;
+  }
+}
+@media (min-width: 1280px) {
+  .notes-masonry {
+    column-count: 4;
+  }
+}
+
+.notes-masonry > * {
+  break-inside: avoid;
+  margin-bottom: 1rem;
+}
+
+/* Glass panel utility */
+.glass {
+  background: rgb(255 255 255 / 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.dark .glass {
+  background: rgb(15 23 42 / 0.7);
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(0 0 0 / 0.06) 25%,
+    rgb(0 0 0 / 0.12) 50%,
+    rgb(0 0 0 / 0.06) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+.dark .skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(255 255 255 / 0.04) 25%,
+    rgb(255 255 255 / 0.1) 50%,
+    rgb(255 255 255 / 0.04) 75%
+  );
+  background-size: 200% 100%;
+}
+
+/* Slide panel animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-slide-in {
+  animation: slideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out;
+}
+
+/* Toast slide */
+@keyframes toastIn {
+  from {
+    transform: translateY(100%) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+.animate-toast-in {
+  animation: toastIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
