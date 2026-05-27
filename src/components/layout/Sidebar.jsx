@@ -6,24 +6,26 @@ import {
   Moon,
   Sun,
   Sparkles,
-} from 'lucide-react'
-import { VIEWS } from '../../utils/constants'
-import useNotesStore from '../../store/useNotesStore'
+} from "lucide-react";
+import { VIEWS } from "../../utils/constants";
+import useNotesStore from "../../store/useNotesStore";
 
 const navItems = [
-  { id: VIEWS.ALL, label: 'All Notes', icon: StickyNote },
-  { id: VIEWS.PINNED, label: 'Pinned Notes', icon: Pin },
-  { id: VIEWS.RECENT, label: 'Recent', icon: Clock },
-  { id: VIEWS.SETTINGS, label: 'Settings', icon: Settings },
-]
+  { id: VIEWS.ALL, label: "All Notes", icon: StickyNote },
+  { id: VIEWS.PINNED, label: "Pinned Notes", icon: Pin },
+  { id: VIEWS.RECENT, label: "Recent", icon: Clock },
+  { id: VIEWS.SETTINGS, label: "Settings", icon: Settings },
+];
 
 export default function Sidebar() {
-  const activeView = useNotesStore((s) => s.activeView)
-  const setActiveView = useNotesStore((s) => s.setActiveView)
-  const pinnedCount = useNotesStore((s) => s.notes.filter((n) => n.pinned).length)
-  const notesCount = useNotesStore((s) => s.notes.length)
-  const darkMode = useNotesStore((s) => s.settings.darkMode)
-  const toggleDarkMode = useNotesStore((s) => s.toggleDarkMode)
+  const activeView = useNotesStore((s) => s.activeView);
+  const setActiveView = useNotesStore((s) => s.setActiveView);
+  const pinnedCount = useNotesStore(
+    (s) => s.notes.filter((n) => n.pinned).length,
+  );
+  const notesCount = useNotesStore((s) => s.notes.length);
+  const darkMode = useNotesStore((s) => s.settings.darkMode);
+  const toggleDarkMode = useNotesStore((s) => s.toggleDarkMode);
 
   return (
     <aside className="hidden h-full w-64 shrink-0 flex-col border-r border-black/5 glass dark:border-white/5 lg:flex">
@@ -33,21 +35,23 @@ export default function Sidebar() {
         </div>
         <div>
           <h1 className="text-base font-bold tracking-tight text-gray-900 dark:text-white">
-            FlowNotes
+            WebNotes
           </h1>
-          <p className="text-[11px] text-gray-500 dark:text-gray-400">Stay in flow</p>
+          <p className="text-[11px] text-gray-500 dark:text-gray-400">
+            Keep your thoughts organized and accessible.
+          </p>
         </div>
       </div>
 
       <nav className="flex-1 space-y-1 px-3">
         {navItems.map(({ id, label, icon: Icon }) => {
-          const active = activeView === id
+          const active = activeView === id;
           const badge =
             id === VIEWS.PINNED
               ? pinnedCount
               : id === VIEWS.ALL
                 ? notesCount
-                : null
+                : null;
 
           return (
             <button
@@ -56,13 +60,13 @@ export default function Sidebar() {
               onClick={() => setActiveView(id)}
               className={`group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                 active
-                  ? 'bg-violet-100/80 text-violet-700 shadow-sm dark:bg-violet-900/40 dark:text-violet-300'
-                  : 'text-gray-600 hover:bg-black/5 dark:text-gray-400 dark:hover:bg-white/5'
+                  ? "bg-violet-100/80 text-violet-700 shadow-sm dark:bg-violet-900/40 dark:text-violet-300"
+                  : "text-gray-600 hover:bg-black/5 dark:text-gray-400 dark:hover:bg-white/5"
               }`}
             >
               <Icon
                 className={`h-4 w-4 transition-transform duration-200 group-hover:scale-110 ${
-                  active ? 'text-violet-600 dark:text-violet-400' : ''
+                  active ? "text-violet-600 dark:text-violet-400" : ""
                 }`}
               />
               <span className="flex-1 text-left">{label}</span>
@@ -72,7 +76,7 @@ export default function Sidebar() {
                 </span>
               )}
             </button>
-          )
+          );
         })}
       </nav>
 
@@ -87,9 +91,9 @@ export default function Sidebar() {
           ) : (
             <Moon className="h-4 w-4 text-indigo-500" />
           )}
-          {darkMode ? 'Light mode' : 'Dark mode'}
+          {darkMode ? "Light mode" : "Dark mode"}
         </button>
       </div>
     </aside>
-  )
+  );
 }
