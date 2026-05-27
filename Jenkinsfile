@@ -1,64 +1,33 @@
 pipeline {
     agent any
 
-    environment {
-        IMAGE_NAME = "notes-web"
-        CONTAINER_NAME = "notes-web-container"
-    }
-
-    tools {
-        nodejs "node22"
-    }
-
     stages {
 
-        stage('Clone Repository') {
+        stage('Clone Code') {
             steps {
-                git 'https://github.com/YOUR_USERNAME/YOUR_REPO.git'
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                sh 'npm install'
-            }
-        }
-
-        stage('Build React App') {
-            steps {
-                sh 'npm run build'
+                git 'https://github.com/Bansalbishop/webnotes.git'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t notes-web:latest .'
+                bat 'docker build -t notes-web .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                sh '''
-                docker stop notes-web-container || true
-                docker rm notes-web-container || true
+                bat '''
+                docker stop notes-web-container || exit 0
+                docker rm notes-web-container || exit 0
                 '''
             }
         }
 
-        stage('Run Docker Container') {
+        stage('Run Container') {
             steps {
-                sh 'docker compose up -d --build'
+                bat 'docker run -d -p 5173:80 --name notes-web-container notes-web'
             }
-        }
-    }
-
-    post {
-        success {
-            echo 'Application deployed successfully!'
-        }
-
-        failure {
-            echo 'Pipeline failed!'
         }
     }
 }
